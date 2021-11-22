@@ -17,10 +17,13 @@ def apriori(s, baskets):
     frequent_singletons = {}
 
     # between passes
-    for item, count in singleton_counter:
+
+
+    for (item, count) in singleton_counter.items():
         if count >= s:
             frequent_singletons[item] = count
 
+    print(frequent_singletons)
     # second pass
     pair_support = []
     for basket in baskets:
@@ -61,7 +64,7 @@ def main():
                 basket.append(int(item))
         baskets.append(basket)
 
-    apriori(2, baskets)
+    apriori(500, baskets)
 
 
 main()
