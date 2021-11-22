@@ -7,6 +7,7 @@ def apriori(s, baskets):
     # storing counts as triplets
     singletons = []
 
+
     # first pass
     for basket in baskets:
         for item in basket:
@@ -18,33 +19,34 @@ def apriori(s, baskets):
 
     # between passes
 
-
     for (item, count) in singleton_counter.items():
         if count >= s:
             frequent_singletons[item] = count
 
-    print(frequent_singletons)
-    # second pass
+
+# print(frequent_singletons)
+# second pass
     pair_support = []
     for basket in baskets:
-        for item in basket:
-            frequent_items_in_basket = []
 
-            if item in frequent_singletons:
+        # print(basket)
+        frequent_items_in_basket = []
+        for item in basket:
+            if item in frequent_singletons.keys():
                 frequent_items_in_basket.append(item)
 
-            # generate pairs
-            basket_pairs = [
-                i for i in combinations(frequent_items_in_basket, 2)
-            ]
+        # generate pairs
+        basket_pairs = [i for i in combinations(frequent_items_in_basket, 2)]
 
-            for pair in basket_pairs:
-                pair_support.append((pair[0], pair[1], 0))
+        # count how many times pairs occurs in baskets
+        for pair in basket_pairs:
+            pair_support.append([pair[0], pair[1], 0])
 
     for pair in pair_support:
         for basket in baskets:
             if pair[0] in basket and pair[1] in basket:
                 pair[2] += 1
+
 
 
 def main():
