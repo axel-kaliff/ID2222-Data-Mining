@@ -1,12 +1,10 @@
 from collections import Counter
 from itertools import combinations
 
-
 def apriori(s, baskets):
 
     # storing counts as triplets
     singletons = []
-
 
     # first pass
     for basket in baskets:
@@ -15,24 +13,19 @@ def apriori(s, baskets):
 
     singleton_counter = Counter(singletons)
 
-    frequent_singletons = {}
+    active = {}
 
     # between passes
-
     for (item, count) in singleton_counter.items():
         if count >= s:
-            frequent_singletons[item] = count
+            active[item] = count
 
-
-# print(frequent_singletons)
 # second pass
-    pair_support = []
+    pair_support = {}
     for basket in baskets:
-
-        # print(basket)
         frequent_items_in_basket = []
         for item in basket:
-            if item in frequent_singletons.keys():
+            if item in active.keys():
                 frequent_items_in_basket.append(item)
 
         # generate pairs
@@ -40,14 +33,9 @@ def apriori(s, baskets):
 
         # count how many times pairs occurs in baskets
         for pair in basket_pairs:
-            pair_support.append([pair[0], pair[1], 0])
+            pair_support[pair] = pair_support.get(pair, 0) + 1
 
-    for pair in pair_support:
-        for basket in baskets:
-            if pair[0] in basket and pair[1] in basket:
-                pair[2] += 1
-
-
+    print(pair_support)
 
 def main():
 
@@ -66,7 +54,7 @@ def main():
                 basket.append(int(item))
         baskets.append(basket)
 
-    apriori(500, baskets)
+    apriori(1000, baskets)
 
 
 main()
