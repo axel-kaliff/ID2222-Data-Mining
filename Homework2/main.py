@@ -45,22 +45,23 @@ def apriori(s, baskets):
 
 
 def main():
-    print("hello world")
 
     baskets = []
-    # data_file = open('T10I4D100K.dat', 'r')
 
-    f = open('T10I4D100K.dat', 'r', encoding='utf-8', errors='ignore')
-    data_file = f.read()
+    reader = open('T10I4D100K.dat', 'r', encoding='utf-8', errors='ignore')
+    data_file = reader.read()
 
-    for line in data_file:
-        basket = [] 
+    lines = data_file.split("\n")
+
+    for line in lines:
+        basket = []
         items = line.split(" ")
         for item in items:
-            basket.append(int(item))
+            if item != '':
+                basket.append(int(item))
         baskets.append(basket)
 
-
     apriori(2, baskets)
-    
+
+
 main()
