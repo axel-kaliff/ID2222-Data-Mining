@@ -110,6 +110,8 @@ def main():
 
                     #calculate confidence
                     confidence = all_support / individual_support
+                    print(Itemsets[len(k) - 1][tuple(sorted(k))])
+                    print(Itemsets[len(lhs) - 1][tuple(sorted(lhs))])
 
                     #filter
                     if confidence >= confidence_threshold:
